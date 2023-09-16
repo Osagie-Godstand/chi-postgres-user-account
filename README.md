@@ -1,8 +1,6 @@
 # chi-user-account-crelog
 User Account CRUD, login and logout using sessions. Made with go-chi router and PostgreSQL with Docker containerisation.
 
-## Open to constructive improvements and Pull Requests.
-
 ## Automating Program Compilation with a Makefile
 - To build target use: make build-app
 - To run target use: make run
