@@ -7,7 +7,7 @@ run: build-app
 
 docker:
 	@echo "building docker file"
-	@docker build --no-cache -t app -f Dockerfile .
+	@docker build -t app -f Dockerfile .
 	@echo "running API inside Docker container"
 	@docker run -p 9090:9090 app
 
