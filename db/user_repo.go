@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Osagie-Godstand/chi-user-account-crelog/models"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/models"
 	"github.com/google/uuid"
 )
 

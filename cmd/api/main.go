@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Osagie-Godstand/chi-user-account-crelog/db"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/db"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )

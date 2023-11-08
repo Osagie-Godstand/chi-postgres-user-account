@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/Osagie-Godstand/chi-user-account-crelog/db"
-	"github.com/Osagie-Godstand/chi-user-account-crelog/handlers"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/db"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/handlers"
 	"github.com/go-chi/chi/v5"
 )
 

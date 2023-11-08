@@ -9,9 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Osagie-Godstand/chi-user-account-crelog/db"
-
-	"github.com/Osagie-Godstand/chi-user-account-crelog/models"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/db"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/models"
 	"github.com/google/uuid"
 )
 
