@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/Osagie-Godstand/chi-postgres-user-account/models"
-	"github.com/Osagie-Godstand/chi-user-account-crelog/db"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/db"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
