@@ -43,14 +43,33 @@ func (ur *UserPostgresRepository) InsertUser(user *models.User) (*models.User, e
 }
 
 func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.UpdateUserParams) (*models.User, error) {
-	_, err := ur.DB.Exec(
+	// Begin a transaction
+	tx, err := ur.DB.Begin()
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if p := recover(); p != nil {
+			_ = tx.Rollback()
+		}
+	}()
+
+	// Update user information
+	_, err = tx.Exec(
 		"UPDATE users SET firstname = $1, lastname = $2 WHERE id = $3",
 		params.FirstName, params.LastName, userID,
 	)
 	if err != nil {
+		_ = tx.Rollback()
 		return nil, err
 	}
 
+	// Commit the transaction
+	if err := tx.Commit(); err != nil {
+		return nil, err
+	}
+
+	// Retrieve the updated user
 	return ur.GetUserByID(userID)
 }
 
@@ -104,6 +123,31 @@ func (ur *UserPostgresRepository) GetUsers() ([]models.User, error) {
 }
 
 func (ur *UserPostgresRepository) DeleteUser(userID uuid.UUID) error {
-	_, err := ur.DB.Exec("DELETE FROM users WHERE id = $1", userID)
-	return err
+	// Begin a transaction
+	tx, err := ur.DB.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if p := recover(); p != nil {
+			_ = tx.Rollback()
+		}
+	}()
+
+	// Delete user sessions first
+	_, err = tx.Exec("DELETE FROM sessions WHERE userid = $1", userID)
+	if err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+
+	// Delete the user
+	_, err = tx.Exec("DELETE FROM users WHERE id = $1", userID)
+	if err != nil {
+		_ = tx.Rollback()
+		return err
+	}
+
+	// Commit the transaction
+	return tx.Commit()
 }

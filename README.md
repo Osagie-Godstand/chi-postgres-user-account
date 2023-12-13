@@ -1,7 +1,7 @@
 # chi-postgres-user-account
 User Account CRUD, login and logout using sessions. Made with go-chi router and PostgreSQL with Docker containerisation.
 
-This link https://odmg.dev/project2 shows images of the request and response for some of the endpoints: create_user, user_login and fetching_user_by_id.
+This link https://odmg.dev/project2 shows images of the request and response for all of the endpoints: create_user, user_login, user_logout, fetching_user_by_id, update_user, fetch_users and delete_user_by_id.
 
 
 ## Automating Program Compilation with a Makefile
