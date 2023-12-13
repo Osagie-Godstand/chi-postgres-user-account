@@ -4,11 +4,11 @@ DO $$ BEGIN
 -- Create the "users" table
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
+    firstname VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    encrypted_password VARCHAR(60) NOT NULL,
-    is_admin BOOLEAN NOT NULL DEFAULT false,
+    encryptedpassword VARCHAR(60) NOT NULL,
+    isadmin BOOLEAN NOT NULL DEFAULT false,
     UNIQUE (email)
 );
   END IF;

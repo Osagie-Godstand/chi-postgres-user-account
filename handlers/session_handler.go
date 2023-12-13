@@ -49,7 +49,7 @@ func invalidCredentials(w http.ResponseWriter) error {
 
 func (s *SessionHandler) CreateSession(session models.Session) error {
 	_, err := s.DB.Exec(
-		"INSERT INTO sessions (user_id, token, expires_at) VALUES ($1, $2, $3)",
+		"INSERT INTO sessions (userid, token, expiresat) VALUES ($1, $2, $3)",
 		session.UserID, session.Token, session.ExpiresAt,
 	)
 	if err != nil {
@@ -59,7 +59,7 @@ func (s *SessionHandler) CreateSession(session models.Session) error {
 }
 
 func (s *SessionHandler) GetSessionByToken(token string) (*models.Session, error) {
-	row := s.DB.QueryRow("SELECT id, user_id, token, expires_at FROM sessions WHERE token = $1", token)
+	row := s.DB.QueryRow("SELECT id, userid, token, expiresat FROM sessions WHERE token = $1", token)
 	var session models.Session
 	if err := row.Scan(&session.ID, &session.UserID, &session.Token, &session.ExpiresAt); err != nil {
 		if err == sql.ErrNoRows {

@@ -32,7 +32,7 @@ func (ur *UserPostgresRepository) InsertUser(user *models.User) (*models.User, e
 
 	// Inserting user into the database
 	_, err := ur.DB.Exec(
-		"INSERT INTO users (id, first_name, last_name, email, encrypted_password, is_admin) VALUES ($1, $2, $3, $4, $5, $6)",
+		"INSERT INTO users (id, firstname, lastname, email, encryptedpassword, isadmin) VALUES ($1, $2, $3, $4, $5, $6)",
 		userID, user.FirstName, user.LastName, user.Email, user.EncryptedPassword, false,
 	)
 	if err != nil {
@@ -44,7 +44,7 @@ func (ur *UserPostgresRepository) InsertUser(user *models.User) (*models.User, e
 
 func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.UpdateUserParams) (*models.User, error) {
 	_, err := ur.DB.Exec(
-		"UPDATE users SET first_name = $1, last_name = $2 WHERE id = $3",
+		"UPDATE users SET firstname = $1, lastname = $2 WHERE id = $3",
 		params.FirstName, params.LastName, userID,
 	)
 	if err != nil {
@@ -55,7 +55,7 @@ func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.Upd
 }
 
 func (ur *UserPostgresRepository) GetUserByEmail(email string) (*models.User, error) {
-	row := ur.DB.QueryRow("SELECT id, first_name, last_name, email, encrypted_password, is_admin FROM users WHERE email = $1", email)
+	row := ur.DB.QueryRow("SELECT id, firstname, lastname, email, encryptedpassword, isadmin FROM users WHERE email = $1", email)
 
 	var user models.User
 	err := row.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.EncryptedPassword, &user.IsAdmin)
@@ -71,7 +71,7 @@ func (ur *UserPostgresRepository) GetUserByEmail(email string) (*models.User, er
 }
 
 func (ur *UserPostgresRepository) GetUserByID(userID uuid.UUID) (*models.User, error) {
-	row := ur.DB.QueryRow("SELECT id, first_name, last_name, email, is_admin FROM users WHERE id = $1", userID)
+	row := ur.DB.QueryRow("SELECT id, firstname, lastname, email, isadmin FROM users WHERE id = $1", userID)
 
 	var user models.User
 	if err := row.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.IsAdmin); err != nil {
@@ -85,7 +85,7 @@ func (ur *UserPostgresRepository) GetUserByID(userID uuid.UUID) (*models.User, e
 }
 
 func (ur *UserPostgresRepository) GetUsers() ([]models.User, error) {
-	rows, err := ur.DB.Query("SELECT id, first_name, last_name, email, is_admin FROM users")
+	rows, err := ur.DB.Query("SELECT id, firstname, lastname, email, isadmin FROM users")
 	if err != nil {
 		return nil, err
 	}

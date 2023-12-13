@@ -46,11 +46,11 @@ func IsEmailValid(e string) bool {
 
 type User struct {
 	ID                uuid.UUID `json:"id"`
-	FirstName         string    `json:"first_name"`
-	LastName          string    `json:"last_name"`
+	FirstName         string    `json:"firstname"`
+	LastName          string    `json:"lastname"`
 	Email             string    `json:"email"`
-	EncryptedPassword string    `json:"encrypted_password"`
-	IsAdmin           bool      `json:"is_admin"`
+	EncryptedPassword string    `json:"encryptedpassword"`
+	IsAdmin           bool      `json:"isadmin"`
 }
 
 func NewUUID() uuid.UUID {

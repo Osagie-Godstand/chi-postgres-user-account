@@ -3,9 +3,9 @@ DO $$ BEGIN
 -- Create the "sessions" table
 CREATE TABLE IF NOT EXISTS sessions (
     id SERIAL PRIMARY KEY,
-    user_id UUID REFERENCES users(id) NOT NULL,
+    userid UUID REFERENCES users(id) NOT NULL,
     token TEXT NOT NULL,
-    expires_at TIMESTAMPTZ NOT NULL
+    expiresat TIMESTAMPTZ NOT NULL
 );
  END IF;
 END $$;

@@ -18,6 +18,7 @@ func initializeRouter(dbConn *sql.DB) http.Handler {
 	userHandler := handlers.NewUserHandler(userRepository)
 
 	// Defining routes and handlers
+
 	// create user and get users does not need session validation
 	router.Post("/user", userHandler.HandlePostUser)
 
