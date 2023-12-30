@@ -1,4 +1,3 @@
--- Create the users table
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'users') THEN
 -- Create the "users" table

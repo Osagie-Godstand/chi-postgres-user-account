@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/Osagie-Godstand/chi-postgres-user-account/db"
-	"github.com/Osagie-Godstand/chi-postgres-user-account/models"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/internal/models"
 	"github.com/google/uuid"
 )
 

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Osagie-Godstand/chi-postgres-user-account/models"
+	"github.com/Osagie-Godstand/chi-postgres-user-account/internal/models"
 	"github.com/google/uuid"
 )
 
@@ -27,10 +27,8 @@ func NewPostgresUserRepository(db *sql.DB) UserRepository {
 }
 
 func (ur *UserPostgresRepository) InsertUser(user *models.User) (*models.User, error) {
-	// Generates a new UUID for the user ID
 	userID := models.NewUUID()
 
-	// Inserting user into the database
 	_, err := ur.DB.Exec(
 		"INSERT INTO users (id, firstname, lastname, email, encryptedpassword, isadmin) VALUES ($1, $2, $3, $4, $5, $6)",
 		userID, user.FirstName, user.LastName, user.Email, user.EncryptedPassword, false,
@@ -43,7 +41,6 @@ func (ur *UserPostgresRepository) InsertUser(user *models.User) (*models.User, e
 }
 
 func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.UpdateUserParams) (*models.User, error) {
-	// Begin a transaction
 	tx, err := ur.DB.Begin()
 	if err != nil {
 		return nil, err
@@ -54,7 +51,6 @@ func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.Upd
 		}
 	}()
 
-	// Update user information
 	_, err = tx.Exec(
 		"UPDATE users SET firstname = $1, lastname = $2 WHERE id = $3",
 		params.FirstName, params.LastName, userID,
@@ -64,12 +60,10 @@ func (ur *UserPostgresRepository) UpdateUser(userID uuid.UUID, params models.Upd
 		return nil, err
 	}
 
-	// Commit the transaction
 	if err := tx.Commit(); err != nil {
 		return nil, err
 	}
 
-	// Retrieve the updated user
 	return ur.GetUserByID(userID)
 }
 
@@ -123,7 +117,6 @@ func (ur *UserPostgresRepository) GetUsers() ([]models.User, error) {
 }
 
 func (ur *UserPostgresRepository) DeleteUser(userID uuid.UUID) error {
-	// Begin a transaction
 	tx, err := ur.DB.Begin()
 	if err != nil {
 		return err
@@ -134,20 +127,17 @@ func (ur *UserPostgresRepository) DeleteUser(userID uuid.UUID) error {
 		}
 	}()
 
-	// Delete user sessions first
 	_, err = tx.Exec("DELETE FROM sessions WHERE userid = $1", userID)
 	if err != nil {
 		_ = tx.Rollback()
 		return err
 	}
 
-	// Delete the user
 	_, err = tx.Exec("DELETE FROM users WHERE id = $1", userID)
 	if err != nil {
 		_ = tx.Rollback()
 		return err
 	}
 
-	// Commit the transaction
 	return tx.Commit()
 }
