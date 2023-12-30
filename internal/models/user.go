@@ -53,12 +53,12 @@ type User struct {
 	IsAdmin           bool      `json:"isadmin"`
 }
 
-func NewUUID() uuid.UUID {
-	return uuid.New()
-}
-
 type UserID struct {
 	ID uuid.UUID `json:"id"`
+}
+
+func NewUUID() uuid.UUID {
+	return uuid.New()
 }
 
 func NewUserFromParams(params CreateUserParams) (*User, error) {
