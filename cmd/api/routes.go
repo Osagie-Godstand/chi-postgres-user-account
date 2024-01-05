@@ -24,13 +24,14 @@ func initializeRouter(dbConn *sql.DB) http.Handler {
 
 	router.Get("/users", userHandler.HandleGetUsers)
 
+	router.Get("/user/{id}", userHandler.HandleGetUserByID)
+
 	// login is used to generate session
 	router.Post("/login", session.Login)
 
 	// Applying the ValidateSession middleware to routes that need session validation
 	router.With(session.ValidateSession).Post("/logout", session.Logout)
 	router.With(session.ValidateSession).Put("/user/{id}", userHandler.HandlePutUser)
-	router.With(session.ValidateSession).Get("/user/{id}", userHandler.HandleGetUserByID)
 	router.With(session.ValidateSession).Delete("/user/{id}", userHandler.HandleDeleteUser)
 
 	return router
