@@ -4,6 +4,8 @@ build-app:
 run: build-app
 	@./bin/app
 
+test: 
+	@go test -v ./...
 
 docker:
 	@echo "building docker file"

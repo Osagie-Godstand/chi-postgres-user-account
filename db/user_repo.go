@@ -141,3 +141,4 @@ func (ur *UserPostgresRepository) DeleteUser(userID uuid.UUID) error {
 
 	return tx.Commit()
 }
+
