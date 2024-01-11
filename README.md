@@ -5,7 +5,7 @@ This link https://odmg.dev/project2 shows images of the request and response for
 
 
 ## Automating Program Compilation with a Makefile
-- To build target use: make build-app
+- To build target use: make build-api
 - To run target use: make run
 - To run API inside docker container use: make docker
 
