@@ -1,17 +1,17 @@
-build-app:
-	@go build -o bin/app ./cmd/api/
+build-api:
+	@go build -o bin/api ./cmd/api/
 
-run: build-app
-	@./bin/app
+run: build-api
+	@./bin/api
 
 test: 
 	@go test -v ./...
 
 docker:
 	@echo "building docker file"
-	@docker build -t app -f Dockerfile .
+	@docker build -t api -f Dockerfile .
 	@echo "running API inside Docker container"
-	@docker run -p 9090:9090 app
+	@docker run -p 9090:9090 api
 
 
 clean: 

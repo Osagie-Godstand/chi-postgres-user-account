@@ -2,7 +2,7 @@
 FROM golang:1.20.3-alpine
 
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /api
 
 # Copy go.mod and go.sum files to the container
 COPY go.mod go.sum ./
@@ -14,10 +14,10 @@ RUN go mod download
 COPY . .
 
 # Build the Go application
-RUN go build -o bin/app ./cmd/api
+RUN go build -o bin/api ./cmd/api
 
 # Expose port 9090
 EXPOSE 9090
 
 # Set the entry point of the container to the executable
-CMD ["./bin/app"]
+CMD ["./bin/api"]
