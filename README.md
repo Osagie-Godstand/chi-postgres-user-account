@@ -1,5 +1,5 @@
 # chi-postgres-user-account
-User Account CRUD, login and logout using sessions.  Including a unit test that is used to test token generation and creating a user.
+User Account CRUD, login and logout using sessions.  Including a unit test that is used to test token generation and creating a user and integration test.
 
 This link https://odmg.dev/project2 shows images of the request and response for all of the endpoints: create_user, user_login, user_logout, fetching_user_by_id, update_user, fetch_users and delete_user_by_id.
 

@@ -57,10 +57,6 @@ func TestUserRepository(t *testing.T) {
 
 	// other test cases can be added here
 
-	//if err != nil {
-	//	t.Fatalf("Error inserting user: %v", err)
-	//}
-
 }
 
 func runMigrations(db *sql.DB) error {
