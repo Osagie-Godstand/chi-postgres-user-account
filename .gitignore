@@ -24,6 +24,6 @@ go.work
 *.env
 
 bin 
-*app
+*.api
 
 *.env.default
