@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 DO $$ BEGIN
     IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'users') THEN
 CREATE TABLE IF NOT EXISTS users (
@@ -21,6 +23,9 @@ CREATE SEQUENCE IF NOT EXISTS posts_id_seq;
 
 -- Set the default value for the ID column using the sequence
 ALTER TABLE users ALTER COLUMN id SET DEFAULT uuid_generate_v4();
+
+-- Drop the existing trigger if it exists
+DROP TRIGGER IF EXISTS set_post_id_trigger ON posts;
 
 -- Create a trigger to set the UUID on insert if not provided
 CREATE OR REPLACE FUNCTION set_post_id()
