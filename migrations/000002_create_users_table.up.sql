@@ -25,7 +25,7 @@ CREATE SEQUENCE IF NOT EXISTS posts_id_seq;
 ALTER TABLE users ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
 -- Drop the existing trigger if it exists
-DROP TRIGGER IF EXISTS set_post_id_trigger ON posts;
+DROP TRIGGER IF EXISTS set_post_id_trigger ON users;
 
 -- Create a trigger to set the UUID on insert if not provided
 CREATE OR REPLACE FUNCTION set_post_id()
