@@ -19,16 +19,16 @@ END $$;
 -- and consistent way to handle UUID generation for the id column.
 
 -- Create a sequence for the UUID if it doesn't exist
-CREATE SEQUENCE IF NOT EXISTS posts_id_seq;
+CREATE SEQUENCE IF NOT EXISTS users_id_seq;
 
 -- Set the default value for the ID column using the sequence
 ALTER TABLE users ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
 -- Drop the existing trigger if it exists
-DROP TRIGGER IF EXISTS set_post_id_trigger ON users;
+DROP TRIGGER IF EXISTS set_user_id_trigger ON users;
 
 -- Create a trigger to set the UUID on insert if not provided
-CREATE OR REPLACE FUNCTION set_post_id()
+CREATE OR REPLACE FUNCTION set_user_id()
     RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.id IS NULL THEN
@@ -38,7 +38,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER set_post_id_trigger
+CREATE TRIGGER set_user_id_trigger
     BEFORE INSERT ON users
-    FOR EACH ROW EXECUTE FUNCTION set_post_id();
+    FOR EACH ROW EXECUTE FUNCTION set_user_id();
 
